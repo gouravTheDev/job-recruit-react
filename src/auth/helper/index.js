@@ -62,3 +62,20 @@ export const isAutheticated = () => {
     return token;
   }
 };
+
+export const isAdmin = async () => {
+  let token = cookies.get("token");
+  let profileDetails = await fetch(`${API}/user/get-profile`, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      token: token,
+    },
+  });
+  profileDetails = await profileDetails.json();
+  if (profileDetails.role == 'admin') {
+    return true;
+  } else {
+    return false;
+  }
+};

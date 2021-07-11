@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { Link, withRouter } from "react-router-dom";
-import { signout, isAutheticated } from "../auth/helper";
+import { signout, isAutheticated, isAdmin } from "../auth/helper";
 
 const currentTab = (history, path) => {
   if (history.location.pathname === path) {
@@ -21,7 +21,7 @@ const Menu = ({ history }) => (
         href="#"
         style={{ borderRadius: "24px" }}
       >
-        POLO
+        Job Portal
       </a>
       {!isAutheticated() && (
         <Fragment>
@@ -58,25 +58,57 @@ const Menu = ({ history }) => (
         </Fragment>
       )}
       {isAutheticated() && (
-        <li className="nav-item ml-auto mr-3">
-          <span
-            className="btn"
-            style={{ cursor: "pointer" }}
-            style={{
-              borderRadius: "30px",
-              background: "#F72D2D",
-              color: "#ffffff",
-              fontSize: "20px",
-            }}
-            onClick={() => {
-              signout(() => {
-                history.push("/");
-              });
-            }}
-          >
-            Signout
-          </span>
-        </li>
+        <Fragment>
+          <li className="nav-item ml-auto mr-3">
+            <span
+              className="btn"
+              style={{ cursor: "pointer" }}
+              style={{
+                borderRadius: "30px",
+                background: "#3C83E5",
+                color: "#ffffff",
+                fontSize: "20px",
+              }}
+              to="/user/job/list"
+            >
+              All Jobs
+            </span>
+          </li>
+          <li className="nav-item mr-3">
+            <span
+              className="btn"
+              style={{ cursor: "pointer" }}
+              style={{
+                borderRadius: "30px",
+                background: "#3C83E5",
+                color: "#ffffff",
+                fontSize: "20px",
+              }}
+              to="/user/job-application/list"
+            >
+              My Applications
+            </span>
+          </li>
+          <li className="nav-item mr-3">
+            <span
+              className="btn"
+              style={{ cursor: "pointer" }}
+              style={{
+                borderRadius: "30px",
+                background: "#3C83E5",
+                color: "#ffffff",
+                fontSize: "20px",
+              }}
+              onClick={() => {
+                signout(() => {
+                  history.push("/");
+                });
+              }}
+            >
+              Signout
+            </span>
+          </li>
+        </Fragment>
       )}
     </ul>
   </div>

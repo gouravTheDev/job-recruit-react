@@ -6,14 +6,14 @@ import { signin, authenticate, isAutheticated } from "../auth/helper";
 
 const Signin = () => {
   const [values, setValues] = useState({
-    phone: "",
+    email: "",
     password: "",
     error: "",
     loading: false,
     didRedirect: false,
   });
 
-  const { phone, password, error, loading, didRedirect } = values;
+  const { email, password, error, loading, didRedirect } = values;
   const { user } = isAutheticated();
 
   const handleChange = (name) => (event) => {
@@ -23,16 +23,20 @@ const Signin = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
     setValues({ ...values, error: false, loading: true });
-    if(!phone || !password || phone == '' || password == ''){
-      setValues({ ...values, error: "Please fill all the fields", loading: false });
+    if (!email || !password || email == "" || password == "") {
+      setValues({
+        ...values,
+        error: "Please fill all the fields",
+        loading: false,
+      });
       return;
     }
-    let data = await signin({ phone, password });
-    // console.log(data)
-    if(data && data!={}){
-      if(data.status == 201){
+    let data = await signin({ email, password });
+    console.log(data);
+    if (data && data != {}) {
+      if (data.status == 201) {
         setValues({ ...values, error: data.message, loading: false });
-      }else{
+      } else {
         authenticate(data, () => {
           setValues({
             ...values,
@@ -40,17 +44,17 @@ const Signin = () => {
           });
         });
       }
-    }else{
+    } else {
       setValues({ ...values, error: "Could not process now!", loading: false });
     }
   };
 
   const performRedirect = () => {
     if (didRedirect) {
-      return <Redirect to="/user/todo" />;
+      return <Redirect to="/user/job/list" />;
     }
     if (isAutheticated()) {
-      return <Redirect to="/" />;
+      return <Redirect to="/user/job/list" />;
     }
   };
 
@@ -85,14 +89,14 @@ const Signin = () => {
         <div className="col-md-6 offset-sm-3 text-left">
           <form>
             <div className="form-group">
-              <label className="">Phone</label>
+              <label className="">Email</label>
               <input
-                onChange={handleChange("phone")}
-                value={phone}
+                onChange={handleChange("email")}
+                value={email}
                 className="form-control"
-                type="number"
+                type="email"
                 required
-                placeholder="Enter Phone Number"
+                placeholder="Enter email"
               />
             </div>
 
@@ -117,7 +121,10 @@ const Signin = () => {
   };
 
   return (
-    <Base title="Login to Your Account" description="A page for user to sign in!">
+    <Base
+      title="Login to Your Account"
+      description="A page for user to sign in!"
+    >
       {loadingMessage()}
       {errorMessage()}
       {signInForm()}
