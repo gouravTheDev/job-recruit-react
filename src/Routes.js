@@ -5,7 +5,7 @@ import Signup from "./user/Signup";
 import Signin from "./user/Signin";
 import PrivateRoute from "./auth/helper/PrivateRoutes";
 import UserJobList from "./user/job/JobList";
-// import UserJobApplicationList from "./user/job-application/ApplicationList";
+import UserJobApplicationList from "./user/job-application/UserJobApplicationList";
 
 // import AdminJobList from "./admin/job/list";
 // import AdminJobApplicationList from "./admin/job-application/list";
@@ -19,7 +19,7 @@ const Routes = () => {
         <Route path="/signin" exact component={Signin} />
         {/* <Route path="/profile" exact component={Profile} /> */}
         <PrivateRoute path="/user/job/list" exact component={UserJobList} />
-        {/* <PrivateRoute path="/user/job-application/list" exact component={UserJobApplicationList} /> */}
+        <PrivateRoute path="/user/job-application/list" exact component={UserJobApplicationList} />
       </Switch>
     </BrowserRouter>
   );
