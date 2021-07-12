@@ -73,9 +73,14 @@ export const isAdmin = async () => {
     },
   });
   profileDetails = await profileDetails.json();
-  if (profileDetails.role == 'admin') {
-    return true;
-  } else {
+  if(profileDetails.status == 200){
+    if (profileDetails.data.role == 'admin') {
+      return true;
+    } else {
+      return false;
+    }
+  }else{
     return false;
   }
+  
 };

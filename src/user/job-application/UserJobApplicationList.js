@@ -110,6 +110,12 @@ const UserJobApplicationList = () => {
                         {jobApp.application_status == "pending" && (
                           <span className="badge badge-warning">Pending</span>
                         )}
+                        {jobApp.application_status == "selected" && (
+                          <span className="badge badge-success">Selected</span>
+                        )}
+                        {jobApp.application_status == "rejected" && (
+                          <span className="badge badge-danger">Rejected</span>
+                        )}
                       </td>
                     </tr>
                   ))}

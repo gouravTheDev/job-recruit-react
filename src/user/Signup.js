@@ -7,13 +7,12 @@ const Signup = () => {
   const [values, setValues] = useState({
     name: "",
     email: "",
-    phone: "",
     password: "",
     error: "",
     success: false,
   });
 
-  const { name, email, phone, password, error, success } = values;
+  const { name, email, password, error, success } = values;
 
   const handleChange = (name) => (event) => {
     setValues({ ...values, error: false, [name]: event.target.value });
@@ -22,19 +21,15 @@ const Signup = () => {
   const onSubmit = (event) => {
     event.preventDefault();
     setValues({ ...values, error: false });
-    if(phone == '' || password == ''  || name == ''  || email == ''){
+    if(password == ''  || name == ''  || email == ''){
       setValues({ ...values, error: "Please fill all the fields", loading: false });
-      return;
-    }
-    if(phone.length < 10){
-      setValues({ ...values, error: "Please provide valid phone number!", loading: false });
       return;
     }
     if(password.length < 6){
       setValues({ ...values, error: "Password must be at least 6 characters!", loading: false });
       return;
     }
-    signup({ name, email, phone, password })
+    signup({ name, email, password })
       .then((data) => {
         if (data.status == 201) {
           setValues({ ...values, error: data.message, success: false });
@@ -43,7 +38,6 @@ const Signup = () => {
             ...values,
             name: "",
             email: "",
-            phone: "",
             password: "",
             error: "",
             success: true,
@@ -78,18 +72,6 @@ const Signup = () => {
                 type="email"
                 value={email}
                 placeholder="Enter Email"
-              />
-            </div>
-
-            <div className="form-group">
-              <label className="">Phone</label>
-              <input
-                required
-                className="form-control"
-                onChange={handleChange("phone")}
-                type="number"
-                value={phone}
-                placeholder="Enter Phone Number"
               />
             </div>
 

@@ -57,9 +57,13 @@ body {
   display: none;
 }
 .homeD {
-  background: #ffffff;
-  height: 100%;
   width: 100%;
+  min-height: 100vh;
+}
+.heroSection{
+  color: #ffffff;
+  min-height: 100vh;
+  background-image: linear-gradient(to right bottom, #0f60d8, #7463dc, #a866db, #d26bd8, #f673d2);
 }
 
 .v101_2 {
@@ -140,10 +144,9 @@ body {
   top: 15%;
 }
 .homeImg {
-  width: 420px;
-  height: 420px;
-  margin-top: 50px;
-  text-align: center;
+  width: 700px;
+  height: 450px;
+  margin-top: 20px;
 }
 /* footer {
   position: absolute;

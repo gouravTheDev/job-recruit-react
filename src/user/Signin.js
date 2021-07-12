@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Base from "../core/Base";
 import { Redirect } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
-import { signin, authenticate, isAutheticated } from "../auth/helper";
+import { signin, authenticate, isAutheticated, isAdmin } from "../auth/helper";
 
 const Signin = () => {
   const [values, setValues] = useState({
@@ -12,6 +13,7 @@ const Signin = () => {
     loading: false,
     didRedirect: false,
   });
+  const [admin, setAdmin] = useState(false);
 
   const { email, password, error, loading, didRedirect } = values;
   const { user } = isAutheticated();
@@ -32,11 +34,13 @@ const Signin = () => {
       return;
     }
     let data = await signin({ email, password });
-    console.log(data);
     if (data && data != {}) {
       if (data.status == 201) {
         setValues({ ...values, error: data.message, loading: false });
       } else {
+        if (data.data.role == "admin") {
+          setAdmin(true);
+        }
         authenticate(data, () => {
           setValues({
             ...values,
@@ -51,9 +55,15 @@ const Signin = () => {
 
   const performRedirect = () => {
     if (didRedirect) {
-      return <Redirect to="/user/job/list" />;
+      if (admin) {
+        return <Redirect to="/admin/job/list" />;
+      } else {
+        return <Redirect to="/user/job/list" />;
+      }
     }
-    if (isAutheticated()) {
+    if (isAutheticated() && isAdmin()) {
+      return <Redirect to="/admin/job/list" />;
+    } else if (isAutheticated()) {
       return <Redirect to="/user/job/list" />;
     }
   };
@@ -115,6 +125,9 @@ const Signin = () => {
               Login
             </button>
           </form>
+          <div className="form-group text-center mt-4">
+            <Link to="/signup">New User? Sign Up</Link>
+          </div>
         </div>
       </div>
     );

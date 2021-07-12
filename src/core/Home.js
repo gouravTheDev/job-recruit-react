@@ -27,10 +27,10 @@ export default function Home() {
           color: "#ffffff",
           fontSize: "30px",
         }}
-        className="btn shadow"
-        to="/user/todo"
+        className="btn shadow text-center mt-4"
+        to="/signin"
       >
-       {token ? 'Projects' : 'Get Started'} 
+        Login to Get Started
       </Link>
     );
   };
@@ -38,20 +38,14 @@ export default function Home() {
   return (
     <div>
       <div className="homeD">
-        <div className="v101_2">
-          <div className="v101_3"></div>
-          <Menu />
-          <div className="container">
+        <div className="heroSection">
+          <div className="container pt-4">
             <div className="row">
-              <div className="col-md-5 col-sm-12">
-                <p className="textL">
-                  Manage Your <br /> Projects
-                  <br /> Efficiently
-                </p>
-                {homeButton()}
-              </div>
-              <div className="col-md-7 col-sm-12 text-left">
-                <img src="/images/clipboard.png" className="homeImg" />
+              <div className="col-12 text-center">
+                <h1 className="text-center font-weight-bold">Job Portal for Everyone</h1>
+                <h5 className="text-center">Get your dream job. Create your free account and apply to jobs now!</h5>
+                {homeButton()} <br />
+                <img src="/home.jpg" className="homeImg" />
               </div>
             </div>
           </div>
@@ -63,7 +57,7 @@ export default function Home() {
 
           <div className="row">
             <div className="col-md-12 col-sm-12 text-center">
-              <img src="/images/clipboard.png" className="homeImgM" />
+              <img src="/images/clipboard.png" className="homeImgM shadow" />
             </div>
             <div className="col-md-12 col-sm-12 text-center">
               <p className="textLM">
